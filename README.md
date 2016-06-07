@@ -145,7 +145,11 @@ If ProGuard is used for obfuscating the source code, the following rules must be
 -dontwarn javax.tools.**
 
 # Realm (required for Proxsee)
--keep class io.realm.** { *; }
+-keep class io.realm.annotations.RealmModule
+-keep @io.realm.annotations.RealmModule class *
+-keep class io.realm.internal.Keep
+-keep @io.realm.internal.Keep class * { *; }
+-dontwarn javax.**
 -dontwarn io.realm.**
 
 # Volley (required for Proxsee)
