@@ -121,7 +121,7 @@ Assumptions:
  5. Open the build.gradle (Module: app)
  6. Add the following line to the dependencies section of your project's build.gradle
 ```
-compile 'io.proxsee:proxsee-sdk:SDK_VERSION'
+compile 'io.proxsee:proxsee-sdk:SDK_VERSION'  #latest released version will be found on http://mvnrepository.com/artifact/io.proxsee/proxsee-sdk
 ```
  7. Click on "Sync project with gradle files"
  8. At this point, the SDK is ready to use and your project can compile successfully. You will still need to obtain an API key to use the SDK.
