@@ -123,8 +123,8 @@ Assumptions:
 ```
 compile 'io.proxsee:proxsee-sdk:SDK_VERSION'
 ```
-6. Click on "Sync project with gradle files"
-7. At this point, the SDK is ready to use and your project can compile successfully. You will still need to obtain an API key to use the SDK.
+ 7. Click on "Sync project with gradle files"
+ 8. At this point, the SDK is ready to use and your project can compile successfully. You will still need to obtain an API key to use the SDK.
 
 ### <a name="proguard-configuration"></a>ProGuard Configuration
 If ProGuard is used for obfuscating the source code, the following rules must be added into the proguard-rules.pro file.
