@@ -113,18 +113,18 @@ The Proxsee SDK can be integrated into your project using Gradle build script on
 ### <a name="using-android-studio"></a>Installing the ProxSee SDK using Android Studio
 This is the easiest and most recommended way to integrate the ProxSee SDK.
 
-1. Assumptions:
+Assumptions:
  1. You have successfully installed Android Studio
  2. You have created a new project or are integrating with an existing project
-2. Click on Project tab
-3. Expand the Gradle Script bullet
-4. Open the build.gradle (Module: app)
-5. Add the following line to the dependencies section of your project's build.gradle
-```compile 'io.proxsee:proxsee-sdk:SDK_VERSION'
+ 3. Click on Project tab
+ 4. Expand the Gradle Script bullet
+ 5. Open the build.gradle (Module: app)
+ 6. Add the following line to the dependencies section of your project's build.gradle
+```
+compile 'io.proxsee:proxsee-sdk:SDK_VERSION'
 ```
 6. Click on "Sync project with gradle files"
 7. At this point, the SDK is ready to use and your project can compile successfully. You will still need to obtain an API key to use the SDK.
-
 
 ### <a name="proguard-configuration"></a>ProGuard Configuration
 If ProGuard is used for obfuscating the source code, the following rules must be added into the proguard-rules.pro file.
