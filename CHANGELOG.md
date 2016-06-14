@@ -4,6 +4,12 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [2.4.0] - NOT YET RELEASED
 
+## [2.3.2] - 2016-06-14
+### Changed
+- Update readme and include Android 6.0 permissions
+### Added
+- Adding android 6.0 permission to SampleApplication
+
 
 ## [2.3.1] - 2016-03-14
 ### Changed

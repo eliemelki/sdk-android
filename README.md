@@ -22,6 +22,7 @@ Furthermore, the ProxSee SDK will automatically communicate a check-in/check-out
     * [Check-in/Check-out](#check-in-check-out)
 * [Installation](#installation)
 * [Usage](#usage)
+	* [Android 6.0 and runtime permissions](#permissions)
     * [Launching the SDK](#launching-the-sdk)
     * [Receiving Tag Changeset Notifications](#receive-tags-changeset-notifications)
     * [Turning On/Off Monitoring](#turning-on-off-monitoring)
@@ -161,6 +162,75 @@ If ProGuard is used for obfuscating the source code, the following rules must be
 ```
 
 ## <a name="usage"></a>Usage
+
+### <a name="permissions"></a>Android 6.0 and runtime permissions
+
+If you are targeting android api 23 and above, you will need to check and enable permissions at runtime. ProxSee SDK requires either ACCESS_FINE_LOCATION or ACCESS_COARSE_LOCATION permissions to operates.
+
+Here is a sample of requesting permissions in your activity. The sample below check permissions onStart but depending on your project modify it as suitable.
+
+```
+private static final int PROXSEE_PERMISSIONS_REQUEST = 1;
+
+@Override
+protected void onStart() {
+    super.onStart();
+    if (!this.isPermissionGranted()) {
+        requestPermissions(requiredPermissions(),PROXSEE_PERMISSIONS_REQUEST);
+    }
+}
+
+public String[] requiredPermissions() {
+        String[] permissions = new String[] {
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+
+        };
+        return permissions;
+}
+
+public boolean isPermissionGranted() {
+        if (Build.VERSION.SDK_INT >= 23) {
+            for (String permission : requiredPermissions()) {
+                if (ContextCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED) {
+                    return false;
+                }
+            }
+            return true;
+        }
+        return true;
+
+
+@Override
+public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+    switch (requestCode) {
+        case PROXSEE_PERMISSIONS_REQUEST: {
+                boolean isPermissionGranted = true;
+                for (int result : grantResults) {
+                    if (result != PackageManager.PERMISSION_GRANTED) {
+                        isPermissionGranted = false;
+                        break;
+                    }
+                }
+
+                ProxSeeSDKManager sdkManager = ProxSeeSDKManager.getInstance();
+                if (isPermissionGranted) {
+                    if (!sdkManager.isStarted()) {
+                        sdkManager.start();
+                    }
+                }else {
+                    sdkManager.stop();
+                }
+       			break;
+       }
+       default:
+           super.onRequestPermissionsResult(requestCode,permissions,grantResults);
+    }
+}
+
+```
+
+
 
 ### <a name="android-launching-the-sdk"></a>Launching the SDK
 
