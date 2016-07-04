@@ -6,7 +6,6 @@ By managing and associating meaningful tags via a central platform, you can redu
 
 Furthermore, the ProxSee SDK will automatically communicate a check-in/check-out to a central platform to record a user's activities. In addition, you can send additional data about the user that will be associated with their check-ins. All of the resultant data could then be mined according to your needs - e.g. to determine wait times, travel patterns, etc.
 
-
 ## Table of Contents
 
 * [How Does the ProxSee SDK Work?](#how-does-proxsee-sdk-works)
@@ -21,6 +20,8 @@ Furthermore, the ProxSee SDK will automatically communicate a check-in/check-out
     * [Metadata](#metadata)
     * [Check-in/Check-out](#check-in-check-out)
 * [Installation](#installation)
+	* [Installing the ProxSee SDK using Android Studio](#using-android-studio)
+	* [ProGuard Configuration](#proguard-configuration)
 * [Usage](#usage)
 	* [Android 6.0 and runtime permissions](#permissions)
     * [Launching the SDK](#launching-the-sdk)
@@ -165,40 +166,26 @@ If ProGuard is used for obfuscating the source code, the following rules must be
 
 ### <a name="permissions"></a>Android 6.0 and runtime permissions
 
-If you are targeting android api 23 and above, you will need to check and enable permissions at runtime. ProxSee SDK requires either ACCESS_FINE_LOCATION or ACCESS_COARSE_LOCATION permissions to operates.
+If you are targeting android api 23 and above, you will need to check and enable permissions at runtime. ProxSee SDK requires either ACCESS_FINE_LOCATION or ACCESS_COARSE_LOCATION permissions to operates. 
 
-Here is a sample of requesting permissions in your activity. The sample below check permissions onStart but depending on your project modify it as suitable.
+
+Here is a sample of requesting permissions in your activity. The sample below check permissions onStart but depending on your project modify it as suitable. You can use for that purpose our ProxSeePermissionManager.
 
 ```
-private static final int PROXSEE_PERMISSIONS_REQUEST = 1;
+import io.proxsee.sdk.ProxSeePermissionManager;
 
+
+private static final int PROXSEE_PERMISSIONS_REQUEST = 1;
+ private ProxSeePermissionManager proxSeePermissionManager = new ProxSeePermissionManager();
+ 
 @Override
 protected void onStart() {
     super.onStart();
-    if (!this.isPermissionGranted()) {
-        requestPermissions(requiredPermissions(),PROXSEE_PERMISSIONS_REQUEST);
+    if (!proxSeePermissionManager.isPermissionGranted(this)) {
+            requestPermissions(proxSeePermissionManager.requiredPermissions(), PROXSEE_PERMISSIONS_REQUEST);
     }
 }
 
-public String[] requiredPermissions() {
-        String[] permissions = new String[] {
-                Manifest.permission.ACCESS_FINE_LOCATION,
-                Manifest.permission.ACCESS_COARSE_LOCATION
-
-        };
-        return permissions;
-}
-
-public boolean isPermissionGranted() {
-        if (Build.VERSION.SDK_INT >= 23) {
-            for (String permission : requiredPermissions()) {
-                if (ContextCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED) {
-                    return false;
-                }
-            }
-            return true;
-        }
-        return true;
 
 
 @Override
@@ -279,7 +266,7 @@ public class MainActivity extends Activity {
 
  		registerReceiver(proxSeeBroadcastReceiver,new IntentFilter(ProxSeeBroadcaster.TAGS_CHANGED_ACTION));
     }
-
+    
     @Override
     public void onDestroy() {
         onDestroy();

@@ -4,7 +4,11 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [2.4.0] - NOT YET RELEASED
 
-## [2.3.2] - 2016-06-14
+## [2.3.3] - 2016-07-04
+### Changed
+- Stop sending bluetooth, location and sdk metadata flags.
+
+## [2.3.2] - 2016-06-30
 ### Changed
 - Update readme and include Android 6.0 permissions
 ### Added

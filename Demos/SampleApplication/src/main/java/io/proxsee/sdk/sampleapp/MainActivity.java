@@ -1,23 +1,16 @@
 package io.proxsee.sdk.sampleapp;
 
-import android.Manifest;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBarActivity;
-import android.text.TextUtils;
-import android.util.Log;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Set;
 
+import io.proxsee.sdk.ProxSeePermissionManager;
 import io.proxsee.sdk.ProxSeeSDKManager;
 import io.proxsee.sdk.broadcast.ProxSeeBroadcastReceiver;
 import io.proxsee.sdk.broadcast.ProxSeeBroadcaster;
@@ -28,6 +21,7 @@ public class MainActivity extends ActionBarActivity {
     private LinearLayout layout;
     private ProxSeeBroadcastReceiver proxSeeBroadcastReceiver;
 
+    private ProxSeePermissionManager proxSeePermissionManager = new ProxSeePermissionManager();
     private static final int PROXSEE_PERMISSIONS_REQUEST = 1;
 
     @Override
@@ -62,8 +56,8 @@ public class MainActivity extends ActionBarActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        if (!this.isPermissionGranted()) {
-            requestPermissions(requiredPermissions(),PROXSEE_PERMISSIONS_REQUEST);
+        if (!proxSeePermissionManager.isPermissionGranted(this)) {
+            requestPermissions(proxSeePermissionManager.requiredPermissions(), PROXSEE_PERMISSIONS_REQUEST);
         }
     }
 
@@ -93,26 +87,6 @@ public class MainActivity extends ActionBarActivity {
         layout.addView(valueTV);
     }
 
-    public String[] requiredPermissions() {
-        String[] permissions = new String[] {
-                Manifest.permission.ACCESS_FINE_LOCATION,
-                Manifest.permission.ACCESS_COARSE_LOCATION
-
-        };
-        return permissions;
-    }
-
-    public boolean isPermissionGranted() {
-        if (Build.VERSION.SDK_INT >= 23) {
-            for (String permission : requiredPermissions()) {
-                if (ContextCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED) {
-                    return false;
-                }
-            }
-            return true;
-        }
-        return true;
-    }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {

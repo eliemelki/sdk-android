@@ -21,7 +21,7 @@ android {
 }
 
 dependencies {
-    compile 'io.proxsee:proxsee-sdk:2.3.1'
+    compile 'io.proxsee:proxsee-sdk:' + SDK_VERSION
     compile 'com.android.support:appcompat-v7:23.1.1'
 }
 
