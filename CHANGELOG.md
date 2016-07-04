@@ -4,10 +4,6 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [2.4.0] - NOT YET RELEASED
 
-## [2.3.3] - 2016-07-04
-### Changed
-- Stop sending bluetooth, location and sdk metadata flags.
-
 ## [2.3.2] - 2016-06-30
 ### Changed
 - Update readme and include Android 6.0 permissions
@@ -86,4 +82,4 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [2.0.5] - 2015-09-21
 ### Fixed
-- Corrected failed Veracode test case - Improper Resource Shutdown or Release in the BluetoothCrashResolver class [PROXSEE-380]
+- Corrected failed Veracode test case - Improper Resource Shutdown or Relea
