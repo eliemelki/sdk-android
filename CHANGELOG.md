@@ -4,7 +4,11 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [2.4.0] - NOT YET RELEASED
 
-## [2.3.4]
+## [2.3.5] - 2016-07-20
+### Changed
+- Change minsdkversion to 9
+ 
+## [2.3.4] - 2016-07-19
 ### Changed
 - Update dagger library to version 2.5
 
