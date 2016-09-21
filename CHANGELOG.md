@@ -4,10 +4,15 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [2.4.0] - NOT YET RELEASED
 
-## [2.3.5] - 2016-07-20
+## [2.3.6] - 2016-09-19
 ### Changed
-- Change minsdkversion to 9
- 
+- Update dagger library to version 2.5
+
+## [2.3.5] - 2016-07-21
+### Changed
+- Update altbeacon to 2.9
+- Make sure other app dont receive our broadcast
+
 ## [2.3.4] - 2016-07-19
 ### Changed
 - Update dagger library to version 2.5
