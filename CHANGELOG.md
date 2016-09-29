@@ -4,14 +4,19 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [2.4.0] - NOT YET RELEASED
 
+## [2.3.7] - 2016-09-30
+##Fixed
+- Process only regions we subscribed to.
+
 ## [2.3.6] - 2016-09-19
 ### Changed
-- Update dagger library to version 2.5
+- Update altbeacon to 2.9
+###fixed
+- Make sure other apps dont receive our broadcast
 
 ## [2.3.5] - 2016-07-21
 ### Changed
-- Update altbeacon to 2.9
-- Make sure other app dont receive our broadcast
+- Update dagger library to version 2.5
 
 ## [2.3.4] - 2016-07-19
 ### Changed
