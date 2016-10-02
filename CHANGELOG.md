@@ -4,14 +4,19 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [2.4.0] - NOT YET RELEASED
 
+
+## [2.3.8] - 2016-10-02
+## Fixed
+- Make sure sdk broadcasts are received by the appropriate app.
+
 ## [2.3.7] - 2016-09-30
-##Fixed
+## Fixed
 - Process only regions we subscribed to.
 
 ## [2.3.6] - 2016-09-19
 ### Changed
 - Update altbeacon to 2.9
-###fixed
+### Fixed
 - Make sure other apps dont receive our broadcast
 
 ## [2.3.5] - 2016-07-21
