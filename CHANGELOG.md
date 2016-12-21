@@ -2,7 +2,14 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## [2.4.0] - NOT YET RELEASED
+## [2.4.0] - 2016-12-20
+
+## Changed
+- Refactor virtual regions detection logic, remove region limitations and implicit checkouts.
+- Allow intersected regions and reduce the region minimum limit
+- Enhance beacon detection and reduce false handshakes
+- Update altbeacon to 2.9.2
+- Allow more offline support and reduce number of requests.
 
 
 ## [2.3.8] - 2016-10-02

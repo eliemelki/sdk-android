@@ -50,12 +50,7 @@ Also referred to as a "real beacon", a "beacon" or an "iBeacon™", this is the 
 
 ### <a name="virtual-beacon"></a>Virtual Beacon
 
-A virtual beacon is a geo-fence - it acts like a broad-ranging real beacon but is based on the user crossing a circular boundary on a map as opposed to nearing a real beacon - as such, it can serve as a less accurate beacon in locations the customer may not have access/permission to add a real beacon device. You are limited to 5 virtual beacons being defined per general Location.
-
-Virtual beacons work in concert with Beacon Devices - In order to work properly, the virtual beacons should be placed on the map in such a way as the user would hit a real beacon before hitting the virtual one. Example:
-
-* Bad: Putting a virtual beacon in the parking lot of a mall and a beacon device inside the mall - would not be able to detect people approaching from the parking lot (the SDK would first begin to notify upon hitting the beacon device in the mall, not in the parking lot)
-* Good: Putting a virtual beacon on Rent A Car Rd in Las Vegas and a beacon device inside the arrival area would be able to detect people coming off of the plane and then detect those that went off to the rental area
+A virtual beacon is a geo-fence - it acts like a broad-ranging real beacon but is based on the user crossing a circular boundary on a map as opposed to nearing a real beacon - as such, it can serve as a less accurate beacon in locations the customer may not have access/permission to add a real beacon device.
 
 ##### <a name="recommendations"></a>Recommendations
 * Select a medium or greater range for your virtual beacon for best results
@@ -64,10 +59,8 @@ Virtual beacons work in concert with Beacon Devices - In order to work properly,
 * Note that check-ins in a virtual beacon are far more likely to occur than check-outs
 
 ##### <a name="limits"></a>Limits
-* The outer radius of a virtual beacon must be more than 200m in distance from the outer radius of any other beacon (real or virtual) - this is enforced by the main platform
 * The accuracy of the virtual beacon may drop significantly in an indoor region
 * The virtual beacon sensitivity is limited to the given device's geo-location abilities and the surrounding environment - results may vary. If greater accuracy is required, real beacon devices are recommended
-* Virtual beacons will stay resident in a user's device until arriving at a new Location (or a reboot)
 
 ### <a name="mobile-api-key"></a>Mobile API Key
 
@@ -104,8 +97,6 @@ Note that the key-value pairs will be stored as a JSON object in the central pla
 A checkin-in/check-out forms a tuple for a device event and track beacon region enter and exit events. The majority of information is stored during a check-in including the time, the device's unique id (UUID) and additional system information like the version of the SDK used. The check-out merely updates the check-out time.
 
 Note that it is possible to have a check-in without a check-out time - network interruptions, etc. could cause a missed check-out.
-
-One special type of check-out is the implied check-out for a virtual beacon. This happens when the user's device does not properly detect that it has left a region but has detected a new beacon. Since virtual beacons may not be placed in close proximity with any other beacon, this results in an implied check-out with an additional flag "context.impliedCheckout=true" appearing in its deviceevent record.
 
 ## <a name="installation"></a>Installation
 
@@ -166,7 +157,7 @@ If ProGuard is used for obfuscating the source code, the following rules must be
 
 ### <a name="permissions"></a>Android 6.0 and runtime permissions
 
-If you are targeting android api 23 and above, you will need to check and enable permissions at runtime. ProxSee SDK requires either ACCESS_FINE_LOCATION or ACCESS_COARSE_LOCATION permissions to operates. 
+If you are targeting android api 23 and above, you will need to check and enable permissions at runtime. ProxSee SDK requires either ACCESS_FINE_LOCATION or ACCESS_COARSE_LOCATION permissions to operates.
 
 
 Here is a sample of requesting permissions in your activity. The sample below check permissions onStart but depending on your project modify it as suitable. You can use for that purpose our ProxSeePermissionManager.
@@ -177,7 +168,7 @@ import io.proxsee.sdk.ProxSeePermissionManager;
 
 private static final int PROXSEE_PERMISSIONS_REQUEST = 1;
  private ProxSeePermissionManager proxSeePermissionManager = new ProxSeePermissionManager();
- 
+
 @Override
 protected void onStart() {
     super.onStart();
@@ -266,7 +257,7 @@ public class MainActivity extends Activity {
 
  		registerReceiver(proxSeeBroadcastReceiver,new IntentFilter(ProxSeeBroadcaster.TAGS_CHANGED_ACTION));
     }
-    
+
     @Override
     public void onDestroy() {
         onDestroy();
