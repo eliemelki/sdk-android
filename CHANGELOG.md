@@ -2,9 +2,12 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## [2.4.0] - 2016-12-20
+## [2.4.1] - 2017-01-19
+### Changed
+- Updating gradle and gms play-services to 10.0.0
 
-## Changed
+## [2.4.0] - 2016-12-20
+### Changed
 - Refactor virtual regions detection logic, remove region limitations and implicit checkouts.
 - Allow intersected regions and reduce the region minimum limit
 - Enhance beacon detection and reduce false handshakes
@@ -13,11 +16,11 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 
 ## [2.3.8] - 2016-10-02
-## Fixed
+### Fixed
 - Make sure sdk broadcasts are received by the appropriate app.
 
 ## [2.3.7] - 2016-09-30
-## Fixed
+### Fixed
 - Process only regions we subscribed to.
 
 ## [2.3.6] - 2016-09-19
