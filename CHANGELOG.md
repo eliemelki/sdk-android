@@ -2,6 +2,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+
+## [2.4.2] - 2017-02-12
+### Changed
+- Updating gms play-services to 10.0.1
+
 ## [2.4.1] - 2017-01-19
 ### Changed
 - Updating gradle and gms play-services to 10.0.0
