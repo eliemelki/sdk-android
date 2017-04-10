@@ -9,6 +9,7 @@ Furthermore, the ProxSee SDK will automatically communicate a check-in/check-out
 ## Table of Contents
 
 * [How Does the ProxSee SDK Work?](#how-does-proxsee-sdk-works)
+* [Minimum requirements](#minimum-requirments)
 * [Key Concepts](#key-concepts)
     * [Beacon Device](#beacon-device)
     * [Virtual Beacon](#virtual-beacon)
@@ -41,6 +42,10 @@ During the course of operation of your application, you can send additional data
 One of the primary purposes of the SDK, however, is to allow a mobile application to listen for tag changes. As each beacon can have one or more tags associated with it, by acting upon the appearance or disappearance of a tag, you can easily handle approaching and leaving a beacon's region. In this respect, real beacons and virtual beacons (geo-fences) operate nearly identically (more on the differences in Key Concepts). The beacons' associated tags and positional information can be updated on the central platform without a need to update the SDK version nor the physical beacons that have been deployed.
 
 At any stage of the application lifecycle you can turn on and off the SDK. Turning off the SDK will stop monitoring beacons, broadcasting check-ins/check-outs, notifying of tag changes.
+
+## <a name="minimum-requirments"></a>Minimum requirements
+* Android 4.3 (minimum Android SDK version is 9)
+* Devices with Bluetooth Low Energy
 
 ## <a name="key-concepts"></a>Key Concepts
 
