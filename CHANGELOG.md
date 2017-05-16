@@ -3,6 +3,16 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 
+## [2.4.3] - 2017-05-15
+### Fixed
+- Fixing and optimising requests
+- Update altbeacon to 2.10
+- Make sure cache time get populated properly on update
+
+### Changed
+- Change the way we register device id
+
+
 ## [2.4.2] - 2017-02-12
 ### Changed
 - Updating gms play-services to 10.0.1
