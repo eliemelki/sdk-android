@@ -12,6 +12,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Changed
 - Change the way we register device id
 
+### Known Issues
+- Developer must manually start the sdk after initialization.
 
 ## [2.4.2] - 2017-02-12
 ### Changed
