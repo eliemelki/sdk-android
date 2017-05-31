@@ -23,10 +23,10 @@ Furthermore, the ProxSee SDK will automatically communicate a check-in/check-out
 	* [Installing the ProxSee SDK using Android Studio](#using-android-studio)
 	* [ProGuard Configuration](#proguard-configuration)
 * [Usage](#usage)
-	* [Android 6.0 and runtime permissions](#permissions)
     * [Launching the SDK](#launching-the-sdk)
     * [Receiving Tag Changeset Notifications](#receive-tags-changeset-notifications)
-    * [Turning On/Off Monitoring](#turning-on-off-monitoring)
+    * [Start/Stop sdk](#start-stop-sdk)
+    * [Android 6.0 and runtime permissions](#permissions)
     * [Updating Metadata](#updating-metadata)
 
 
@@ -155,64 +155,15 @@ If ProGuard is used for obfuscating the source code, the following rules must be
 
 ## <a name="usage"></a>Usage
 
-### <a name="permissions"></a>Android 6.0 and runtime permissions
-
-If you are targeting android api 23 and above, you will need to check and enable permissions at runtime. ProxSee SDK requires either ACCESS_FINE_LOCATION or ACCESS_COARSE_LOCATION permissions to operates.
-
-
-Here is a sample of requesting permissions in your activity. The sample below check permissions onStart but depending on your project modify it as suitable. You can use for that purpose our ProxSeePermissionManager.
-
-```
-import io.proxsee.sdk.ProxSeePermissionManager;
-
-
-private static final int PROXSEE_PERMISSIONS_REQUEST = 1;
- private ProxSeePermissionManager proxSeePermissionManager = new ProxSeePermissionManager();
-
-@Override
-protected void onStart() {
-    super.onStart();
-    if (!proxSeePermissionManager.isPermissionGranted(this)) {
-            requestPermissions(proxSeePermissionManager.requiredPermissions(), PROXSEE_PERMISSIONS_REQUEST);
-    }
-}
-
-
-
-@Override
-public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-    switch (requestCode) {
-        case PROXSEE_PERMISSIONS_REQUEST: {
-                boolean isPermissionGranted = true;
-                for (int result : grantResults) {
-                    if (result != PackageManager.PERMISSION_GRANTED) {
-                        isPermissionGranted = false;
-                        break;
-                    }
-                }
-
-                ProxSeeSDKManager sdkManager = ProxSeeSDKManager.getInstance();
-                if (isPermissionGranted) {
-                    if (!sdkManager.isStarted()) {
-                        sdkManager.start();
-                    }
-                }else {
-                    sdkManager.stop();
-                }
-       			break;
-       }
-       default:
-           super.onRequestPermissionsResult(requestCode,permissions,grantResults);
-    }
-}
-
-```
-
 
 
 ### <a name="android-launching-the-sdk"></a>Launching the SDK
 
 Obtain a Mobile API key (see [Mobile API Key](#mobile-api-key)). Then, on the application onCreate, initialize the ProxSee SDK with the Mobile API key (replace "YourApiKey" with your Mobile API GUID)
+
+On first time app installation and upon calling initialize, the sdk will be in starting state by default and therefore will be started automatically.
+
+After that, on any app restart followed by a call for initialise will attempt to start depending on the SDK State. Calling sdk initialise more then once has no effect, unless the api key was changed.
 
 ```
 import io.proxsee.sdk.ProxSeeSDKManager;
@@ -268,7 +219,10 @@ public class MainActivity extends Activity {
 
 ### <a name="android-turning-on-off-monitoring"></a>Turning On/Off Monitoring
 
-At any point of the application lifecycle you can turn on or off the sdk which will stop monitoring beacons, stop broadcasting check-ins/check-outs, notifying of tag changes and updating metadata.
+At any point of the application lifecycle you can start/stop the sdk which will stop monitoring beacons, stop broadcasting check-ins/check-outs, notifying of tag changes and updating metadata.
+
+Any explicit call for start/stop,  will change the SDK state accordingly. This will be used later on app restart when initialise method called to determine the state.
+
 
 To turn off monitoring
 
@@ -282,6 +236,58 @@ To turn on monitoring
 ProxSeeSDKManager.getInstance().start();
 ```
 
+To determine if the sdk is in a start or stop state
+```
+ProxSeeSDKManager.getInstance().isStarted();
+```
+
+### <a name="permissions"></a>Android 6.0 and runtime permissions
+
+If you are targeting android api 23 and above, you will need to check and enable permissions at runtime. ProxSee SDK requires either ACCESS_FINE_LOCATION or ACCESS_COARSE_LOCATION permissions to operates.
+
+
+Here is a sample of requesting permissions in your activity. The sample below check permissions onStart but depending on your project modify it as suitable. You can use for that purpose our ProxSeePermissionManager.
+
+The SDK has also the ability to pick up permissions changes and resume/pause automatically depending on the state without an explicit call for stop/start.
+
+
+```
+import io.proxsee.sdk.ProxSeePermissionManager;
+
+
+private static final int PROXSEE_PERMISSIONS_REQUEST = 1;
+ private ProxSeePermissionManager proxSeePermissionManager = new ProxSeePermissionManager();
+
+@Override
+protected void onStart() {
+    super.onStart();
+    if (!proxSeePermissionManager.isPermissionGranted(this)) {
+            requestPermissions(proxSeePermissionManager.requiredPermissions(), PROXSEE_PERMISSIONS_REQUEST);
+    }
+}
+
+
+
+@Override
+public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+    switch (requestCode) {
+        case PROXSEE_PERMISSIONS_REQUEST: {
+                boolean isPermissionGranted = true;
+                for (int result : grantResults) {
+                    if (result != PackageManager.PERMISSION_GRANTED) {
+                        isPermissionGranted = false;
+                        break;
+                    }
+                }
+                //you are not required to start explicitly unless you have stoped the SDK earlier. The SDK will be able to resume automatically if it was in a starting state.
+       			break;
+       }
+       default:
+           super.onRequestPermissionsResult(requestCode,permissions,grantResults);
+    }
+}
+
+```
 
 ### <a name="android-updating-metadata"></a>Updating metadata
 

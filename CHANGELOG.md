@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 
+## [2.4.4] - 2017-05-18
+### Changed
+- Use com.android.volley:volley 1.0.0
+
 ## [2.4.3] - 2017-05-15
 ### Fixed
 - Fixing and optimising requests
@@ -12,8 +16,6 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Changed
 - Change the way we register device id
 
-### Known Issues
-- Developer must manually start the sdk after initialization.
 
 ## [2.4.2] - 2017-02-12
 ### Changed
