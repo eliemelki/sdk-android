@@ -145,12 +145,11 @@ If ProGuard is used for obfuscating the source code, the following rules must be
 -dontwarn javax.**
 -dontwarn io.realm.**
 
-# Volley (required for Proxsee)
--keepattributes InnerClasses
--keep class com.android.volley.** {*;}
--keep class com.android.volley.toolbox.** {*;}
--keep class com.android.volley.$ {*;}
--keep class org.apache.commons.logging.**
+# Okhttp (required for Proxsee)
+-dontwarn okio.**
+-dontwarn javax.annotation.Nullable
+-dontwarn javax.annotation.ParametersAreNonnullByDefault
+
 ```
 
 ## <a name="usage"></a>Usage
