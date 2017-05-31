@@ -3,9 +3,12 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 
-## [2.4.4] - 2017-05-18
+## [2.4.4] - 2017-06-01
 ### Changed
-- Use com.android.volley:volley 1.0.0
+- use okhttp instead of volley
+
+### Fixed
+- make sure the sdk start on first initialise
 
 ## [2.4.3] - 2017-05-15
 ### Fixed

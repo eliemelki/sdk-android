@@ -25,7 +25,7 @@ Furthermore, the ProxSee SDK will automatically communicate a check-in/check-out
 * [Usage](#usage)
     * [Launching the SDK](#launching-the-sdk)
     * [Receiving Tag Changeset Notifications](#receive-tags-changeset-notifications)
-    * [Start/Stop sdk](#start-stop-sdk)
+    * [Start/Stop SDK](#start-stop-sdk)
     * [Android 6.0 and runtime permissions](#permissions)
     * [Updating Metadata](#updating-metadata)
 
@@ -217,7 +217,7 @@ public class MainActivity extends Activity {
 }
 ```
 
-### <a name="android-turning-on-off-monitoring"></a>Turning On/Off Monitoring
+### <a name="start-stop-sdk"></a>Start/Stop SDK
 
 At any point of the application lifecycle you can start/stop the sdk which will stop monitoring beacons, stop broadcasting check-ins/check-outs, notifying of tag changes and updating metadata.
 
