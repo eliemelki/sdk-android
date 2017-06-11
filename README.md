@@ -51,6 +51,7 @@ Also referred to as a "real beacon", a "beacon" or an "iBeacon™", this is the 
 ### <a name="virtual-beacon"></a>Virtual Beacon
 
 A virtual beacon is a geo-fence - it acts like a broad-ranging real beacon but is based on the user crossing a circular boundary on a map as opposed to nearing a real beacon - as such, it can serve as a less accurate beacon in locations the customer may not have access/permission to add a real beacon device.
+The accuracy of geofence is based on GPS/Network provider. The SDK use PRIORITY_BALANCED_POWER_ACCURACY which provides up to 100 meter accuracy.  The SDK is also expected to recieve a location update within 2 to 5 minutes. 
 
 ##### <a name="recommendations"></a>Recommendations
 * Select a medium or greater range for your virtual beacon for best results
