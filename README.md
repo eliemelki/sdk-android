@@ -11,6 +11,7 @@ The content in this document is divided into the following sections:
         - [Beacon](#beacon) 
         - [Virtual Beacon](#virtual-beacon)
             - [Deployment](#deployment)
+            - [Limitations](#limitations)
             - [Accuracy](#accuracy)
         - [Mobile API Key](#mobile-api-key)
         - [Locations](#locations)
@@ -34,7 +35,7 @@ The content in this document is divided into the following sections:
 - [Section 4: FAQs](#section-4-faqs)
  
 ## Section 1: Introducing the ProxSee SDK
- 
+
 ### Background
  
 The ProxSee SDK takes the complexities out of beacon interaction and provides you with a simplified interface to quickly integrate iBeacon™ and virtual beacon (geo-fence) monitoring into your mobile application.
@@ -46,16 +47,16 @@ Combined with the ProxSee Admin Portal, the ProxSee SDK allows you to create and
 Once initialized, the ProxSee SDK associates a unique identifier with the user's mobile device, which is used in all communications to the central platform. The ProxSee SDK starts monitoring beacons/virtual beacons and sends check-in/check-out information to the central platform whenever an enter or exit event is detected:
  
 - **Enter event**: The user approaches the beacon or enters the virtual beacon (geo-fence) circular boundary. The ProxSee SDK sends check-in information to the central platform when an enter event is detected.
-- **Exit event**: The user moves away from the beacon or exists the virtual beacon (geo-fence) circular boundary. The ProxSee SDK sends check-out information to the central platform when an exit event is detected.  
- 
+- **Exit event**: The user moves away from the beacon or exists the virtual beacon (geo-fence) circular boundary. The ProxSee SDK sends check-out information to the central platform when an exit event is detected.
+
 Along with monitoring the beacons/virtual beacons, the ProxSee SDK also queries the central platform for tag information associated with a beacon/virtual beacon and automatically loads and caches information about nearby beacons/virtual beacons.
  
 The ProxSee SDK allows your application to:
  
-- **Listen For and Receive Tag Changeset Notifications**: Your application can listen for and receive tag changeset notifications sent by the ProxSee SDK. You can update the tags and positional information associated to a beacon/virtual beacon through the ProxSee Admin Portal without having to update your ProxSee SDK or the physical, deployed beacons.
-- **Turn Monitoring On/Off**: The ProxSee SDK monitors beacons/virtual beacons, broadcasts check-ins/check-outs, send tag changeset notifications, and update metadata. At any point in your application, you can turn on or off the ProxSee SDK, which turns on or off monitoring. 
-- **Send Metadata**: You can send additional information about a user such as account information and user IDs to the ProxSee SDK. When the ProxSee SDK receives metadata it associates it with the user's check-ins, which helps you identify users and devices among the collected data. 
- 
+- **Listen For and Receive Tag Changeset Notifications**: Your application can listen for and receive tag changeset notifications sent by the ProxSee SDK. You can update the tags and positional information associated to a beacon/virtual beacon through the ProxSee Admin Portal without having to update your ProxSee SDK or the physical, deployed beacons. See [Handle Tag Changeset Notifications](#handle-tag-changeset-notifications). 
+- **Start/Stop the ProxSee SDK**: The ProxSee SDK monitors beacons/virtual beacons, broadcasts check-ins/check-outs, send tag changeset notifications, and update metadata. At any point in your application, you can start/stop the ProxSee SDK, which turns on/off monitoring. See [Start/Stop the ProxSee SDK](#start-stop-the-proxsee-sdk). 
+- **Update Metadata**: You can add additional information about a user such as account information and user IDs. When the ProxSee SDK receives metadata it associates it with the user's check-ins, which helps you identify users and devices among the collected data. See [Update Metadata](#send-update-metadata).
+
 ### Key Concepts
  
 #### Beacon
@@ -64,25 +65,36 @@ Also referred to as a "physical beacon" or an "iBeacon™", this is the physical
  
 #### Virtual Beacon
  
-A virtual beacon is a geo-fence that behaves  based on the user crossing a circular boundary on a map rather than nearing a physical beacon. s such, it can serve as a less accurate beacon in locations the customer may not have the access/permission to add a physical device.
-The accuracy of a geo-fence is based on the GPS/network provider. The SDK has up to 100 meters accuracy. The SDK is also expected to receive a location update whenever the device is moved approximately 100 meters.
+A virtual beacon is a geo-fence that behaves  based on the user crossing a circular boundary on a map rather than nearing a physical beacon. s such, it can serve as a less accurate beacon in locations the customer may not have the access/permission to add a physical device. 
  
-##### Deployment
+Virtual beacons work in concert with physical beacons. In order to work properly, virtual beacons should be placed on the map in such a way that a user would hit a physical beacon before hitting a virtual beacon. For example:
  
-For best results, virtual beacons should be deployed with a medium or greater range.
-Virtual beacons should be placed in areas where a user is likely to remain or traverse for several seconds/minutes.
+- **Bad Placement**: Putting a virtual beacon in the parking lot of a mall and a physical beacon inside the mall would not allow you to detect people approaching from the parking lot.  The ProxSee SDK would send notifications of users hitting the beacon in the mall first, not in the parking lot. 
+- **Good Placement**: Putting a virtual beacon on Rent a Car Road in Las Vegas and a physical beacon inside the arrival area of the Las Vegas airport would allow you to detect people coming off of an airplane and then detect those that went to the rental car area. 
+
+###### Deployment
  
+- For best results, virtual beacons should be deployed with a medium or greater range.
+- Virtual beacons should be placed in areas where a user is likely to remain or traverse for several seconds/minutes.
+
+##### Limitations
+ 
+- You are limited to 5 virtual beacons per location.
+- The outer radius of a virtual beacon must be more than 200 meters in distance from the outer radius of any other beacon (physical or virtual).
+
 ##### Accuracy 
  
-The following factors may affect the accuracy of a virtual beacon:
+The accuracy of virtual beacons is based on the GPS/network provider; however, the following factors may affect the accuracy of a virtual beacon:
  
 - Area obstructions
 - The capabilities of the user’s mobile device
 - The geo-location abilities of the user’s mobile device
 - Indoor placement (Note: This may significantly affect the accuracy of the virtual beacon)
+
+The ProxSee SDK is also expected to receive a location update whenever the device is moved approximately 100 meters. in general, the closer you are to a beacon the more accurate the reported distance. 
  
-in general, the closer you are to a beacon the more accurate the reported distance. Because of the factors mentioned above, it’s not possible to provide specific numbers for accuracy. On average, the measurement error can be 20-30% of the actual distance. You can increase signal reliability by increasing the Broadcasting Power. For greater accuracy, the use of beacons (physical devices) is recommended.
- 
+Because of the factors mentioned above, it’s not possible to provide specific numbers for accuracy. On average, the measurement error can be 20-30% of the actual distance. You can increase signal reliability by increasing the Broadcasting Power. For greater accuracy, the use of beacons (physical devices) is recommended.
+
 #### Locations
  
 Locations within the ProxSee platform group beacons/virtual beacons by region and establish a default tag for each beacon/virtual beacon within the region. Locations also play a part in the caching of beacon data.
@@ -126,9 +138,9 @@ Data is stored during both a check-in and a check-out.
 Incorporating the ProxSee SDK into your Android project is a simple four-step process:
  
 - [Generate a Mobile API Key](#generate-a-mobile-api-key)
-- Integrate the ProxSee SDK into Your Android Project(#integrate-the-proxsee-sdk-into-your-android-project)
-- Complete ProGuard Configuration(#complete-proguard-configuration)
-- Launch the ProxSee SDK(#launch-the-proxsee-sdk)
+- [Integrate the ProxSee SDK into Your Android Project](#integrate-the-proxsee-sdk-into-your-android-project)
+- [Complete ProGuard Configuration](#complete-proguard-configuration)
+- [Launch the ProxSee SDK](#launch-the-proxsee-sdk)
 
 ### Prerequisites
  
@@ -137,7 +149,8 @@ The ProxSee SDK requires:
 - An active Bluetooth service in order to function with beacons/virtual beacons
 - Active Location services in order to function with virtual beacons
 - An Internet connection
- 
+
+
 ### Generate a Mobile API Key
  
 In order to use the ProxSee SDK, you will need to generate a Mobile API Key.
@@ -151,6 +164,7 @@ In order to use the ProxSee SDK, you will need to generate a Mobile API Key.
  
 **Note**: If you have multiple applications, you may wish to generate a unique Mobile API Key for each one.
  
+
 ### Integrate the ProxSee SDK into Your Android Project
  
 The Proxsee SDK can be integrated into your Android project using Gradle build script on Android Studio (easiest and most recommended).
@@ -160,6 +174,7 @@ The Proxsee SDK can be integrated into your Android project using Gradle build s
 - You have successfully installed Android Studio
 - You have created a new project or are integrating with an existing project
  
+
 To integrate the ProxSee SDK into your Android project using Gradle build script on Android Studio:
  
 1. Click the **Project** tab.
@@ -372,7 +387,7 @@ public void onRequestPermissionsResult(int requestCode, @NonNull String[] permis
 
 ```
 
-### Update Metada
+### Update Metadata
 
 At any point in the application lifecycle you can update metadata. See the sample below for an example.
 
@@ -407,6 +422,10 @@ Refer to the [Launch the ProxSee SDK](#launch-the-proxsee-sdk) section for detai
 **What happens when Bluetooth is disabled?**
  
 Scanning for physical beacons is paused while scanning for virtual beacons will continue. Once Bluetooth is re-enabled, scanning for physical beacons will resume. Note: The ProxSee SDK must have monitoring enabled in order to receive events.
+
+**What happens when Location services are disabled?**
+
+The ProxSee SDK needs to be enabled to receive events. Assuming the ProxSee SDK is enabled, if Location services are disabled, the detection of virtual beacons will be paused. As of Android 6, Location services need to be enabled for BLE scanning. If enforced by the device, the detection of physical beacons will also be paused. Once Location services are re-enabled, the detection of beacons will resume. 
  
 **What happens when Location permissions are disabled?**
  
