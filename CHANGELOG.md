@@ -1,258 +1,144 @@
-# ProxSee SDK for Android Change Log
-
-
+# Android SDK Change Log
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 
-## [2.4.5] - 2017-06-01
-
-
-### Added
-
-
-- adding gzip support
-
 ## [2.4.4] - 2017-06-01
-
-
 ### Changed
-
-
-- OkHttp is now used instead of Volley 
+- use okhttp instead of volley
 
 ### Fixed
-
-
-- Fixes were made to make sure the SDK starts on the first initialize
+- make sure the sdk start on first initialise
 
 ## [2.4.3] - 2017-05-15
-
-
 ### Fixed
-
-
-- Requests have been fixed and optimized 
-- Cache time is now properly populated on updates 
+- Fixing and optimising requests
+- Update altbeacon to 2.10
+- Make sure cache time get populated properly on update
 
 ### Changed
-
-
-- Changes have been made to the way device IDs are registered
-- AltBeacon has been updated to 2.10
+- Change the way we register device id
 
 
 ## [2.4.2] - 2017-02-12
-
-
 ### Changed
-
-
-- Google Play Services (gms play-services) has been updated to 10.0.1
+- Updating gms play-services to 10.0.1
 
 ## [2.4.1] - 2017-01-19
-
-
 ### Changed
-
-
-- Gradle and Google Play Services (gms play-services) have been updated to 10.0.0
+- Updating gradle and gms play-services to 10.0.0
 
 ## [2.4.0] - 2016-12-20
-
-
 ### Changed
-
-
-- Virtual regions detection logic has been refactored
-- Region limitations and implicit checkouts have been removed
-- Intersected regions are now allowed 
-- The region minimum limit has been reduced
-- Beacon detection has been enhanced and false handshakes reduced
-- AltBeacon has been updated to 2.9.2
-- Offline support has been increased and the number of requests reduced
+- Refactor virtual regions detection logic, remove region limitations and implicit checkouts.
+- Allow intersected regions and reduce the region minimum limit
+- Enhance beacon detection and reduce false handshakes
+- Update altbeacon to 2.9.2
+- Allow more offline support and reduce number of requests.
 
 
 ## [2.3.8] - 2016-10-02
-
-
 ### Fixed
-
-
-- Fixes were made to make sure the SDK broadcasts are received by the appropriate app
+- Make sure sdk broadcasts are received by the appropriate app.
 
 ## [2.3.7] - 2016-09-30
-
-
 ### Fixed
-
-
-- Only regions that are subscribed to will be processed
+- Process only regions we subscribed to.
 
 ## [2.3.6] - 2016-09-19
-
-
 ### Changed
-
-
-- AltBeacon has been updated to 2.9
-
-
+- Update altbeacon to 2.9
 ### Fixed
-
-
-- Fixes have been made to make sure that apps other than the intended ones do not receive ProxSee SDK broadcasts
+- Make sure other apps dont receive our broadcast
 
 ## [2.3.5] - 2016-07-21
-
-
 ### Changed
-
-
-- The Dagger library has been updated to version 2.5
+- Update dagger library to version 2.5
 
 ## [2.3.4] - 2016-07-19
-
-
 ### Changed
-
-
-- The Dagger library has been updated to version 2.5
+- Update dagger library to version 2.5
 
 ## [2.3.3] - 2016-07-04
-
-
 ### Changed
-
-
-- Bluetooth, location and SDK metadata flags are no longer sent
+- Stop sending bluetooth, location and sdk metadata flags.
 
 ## [2.3.2] - 2016-06-30
-
-
 ### Changed
-
-
-- The Readme file has been updated regarding Android 6.0 permissions
-
-
+- Update readme and include Android 6.0 permissions
 ### Added
-
-
-- Android 6.0 permissions have been added to SampleApplication
+- Adding android 6.0 permission to SampleApplication
 
 
 ## [2.3.1] - 2016-03-14
-
-
 ### Changed
-
-
-- AARs are now generated instead of Jars
+- Generate aar instead of jar
 
 
 ## [2.3.0] - 2016-03-07
-
-
 ### Added
-
-
-- Offline support has been added for check-ins/check-outs (The SDK will now save any check-in/check-out in offline mode so it can resubmit later when back online)
-- Sending Beacon RSSI information is now sent with check-in requests
-- The SDK can now run on a single thread
+- Offline support for checkin/out. The SDK will now save any checkin/out in offline mode, so it can resubmit later when its back online.
+- Sending beacon rssi information with checkin requests.
+- Allow the sdk to run on one single thread
 
 ### Changed
-
-
-- Realm has been updated to version 0.87.4 (Please review your ProGuard rules [here](https://realm.io/docs/java/0.87.4/#getting-started))
-- Pushing Bluetooth state change metadata has been disabled
-- The AltBeacon hack is no longer used and the SDK is now used out of the box
-- A new layer has been introduced to handle detecting beacons nearby while minimising false handshakes
-- The SDK no longer has to wait 5 minutes to detect an exit
-- Changes have been made to the SDK API interface
-- Enhancements have been made in the way Realm is used and connections are now properly closed
-- The SDK test app UI has been refactored
+- Updated realm to version 0.87.4. Please review your ProGuard rules [here](https://realm.io/docs/java/0.87.4/#getting-started).
+- Disabled pushing bluetooth state change metadata until we better understand PROXSEE-664
+- No longer use the Alt beacon hack and use the out of the box sdk.
+- Introduce a new layer that handle detecting beacon nearby minimising false handshake.
+- SDK no longer have to wait 5 minute to detect an exit.
+- Change the SDK api Interface.
+- Enhance the way we use realm and make sure we properly close connections.
+- Refactor the SDK test app UI.
 
 ## [2.2.3] - 2016-01-13
-
-
 ### Fixed
-
-
-- Issues with Android 6.0 and how the SDK generates the unique device IDs have been resolved
+- Issue with Android 6.0 and how the sdk was generating the device unique id
 
 ## [2.2.2] - 2015-12-09
-
-
 ### Fixed
-
-
-- A Vera code issue where == was used instead of equals has been resolved
+- Vera code issue where == is used instead of equals
 
 ## [2.2.1] - 2015-11-27
-
-
 ### Changed
-
-
-- The Realm dependency has been updated to version 0.85.1
+- Update realm dependency to 0.85.1
 
 ## [2.2.0] - 2015-11-26
-
-
 ### Added
-
-
-- The ability to start and stop the SDK has been added
-- Device information can now be captured through metadata such as location, Bluetooth and the starting/stopping of the SDK
+- Ability to start / stop the SDK
+- Capturing device information through metadata such as location, bluetooth and starting/stopping of the sdk
 
 ### Changed
-
-
-- Metadata is no longer sent when the SDK is turned off
-- The SDK now waits 5 minutes instead of 30 seconds before confirming a check-out 
-- Battery consumption has been improved
+- Metadata are no longer sent when the sdk is turned off
+- SDK will wait 5 minutes before confirmung a checkout as opposed to 30 seconds previously
+- Improved battery consumption
 
 
 ## [2.1.2] - 2015-09-25
 ### Changed
-
-
-- The build server has been changed (there should be no functional difference between this and build 2.1.1)
+- Changed the build server - there should be no functional difference between this and build 2.1.1 [PROXSEE-476]
 
 ## [2.1.1] - 2015-09-25
-
-
 ### Fixed
-
-
-- Fixed a crash that could occur when a user upgraded an application containing SDK 2.0.x to 2.1.0 (or higher) 
+- Fixed a crash that could occur when a user upgraded an application containing SDK 2.0.x to 2.1.0 (or higher) [PROXSEE-415]
 
 ## [2.1.0] - 2015-09-16
-
-
 ### Added
-
-
-- Virtual Beacon Support
+- Virtual Beacon support
+    - Read more about virtual beacons [here](../features/virtualbeacons.md) - Android-specific features follow.
     - Virtual beacon entry and exit notifications will be attempted within 20 seconds of the trigger
-    - If another beacon region is encountered before receiving a notification that the device has exited the current virtual beacon, the device will perform a check-out with the additional flag "context.impliedCheckout=true" in its device event record
+    - If another beacon region is encountered before receiving a notification that the device has exited the current virtual beacon, the device will perform a check-out with an additional flag "context.impliedCheckout=true" in its deviceevent record
 
 ### Changed
 
-- The documentation has been updated
+- Updated documentation [PROXSEE-334]
 
 ### Fixed
 
-- A new URL is referenced for querying nearby beacons 
-- The internal hashing algorithm has been updated to SHA-512 
-- The ProGuard rules (and README.txt) have been updated to include volley classes, etc.
+- Reference new URL for querying nearby beacons [PROXSEE-168]
+- Updated internal hashing algorithm to SHA-512 [PROXSEE-349]
+- Updated proguard rules (and README.txt) to include volley classes, etc.
 
 ## [2.0.5] - 2015-09-21
-
-
 ### Fixed
-
-
-- Corrected The failed Vera code test case has been corrected (improper Resource Shutdown or release in the BluetoothCrashResolver class)
- 
+- Corrected failed Veracode test case - Improper Resource Shutdown or Release in the BluetoothCrashResolver class [PROXSEE-380]
