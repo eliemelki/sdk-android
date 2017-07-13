@@ -422,9 +422,9 @@ Refer to the [Launch the ProxSee SDK](#launch-the-proxsee-sdk) section for detai
  
 Scanning for physical beacons is paused while scanning for virtual beacons will continue. Once Bluetooth is re-enabled, scanning for physical beacons will resume. Note: The ProxSee SDK must have monitoring enabled in order to receive events.
 
-**What happens when Location services are turned off?**
+**What happens when Location services are disabled?**
 
-The ProxSee SDK needs to be enabled to receive events. Assuming the ProxSee SDK is enabled, if Location services are turned off, the detection of virtual beacons will be paused. It is noted that on Nexus 5 if locations services are turning off Once Location services are re-enabled, the detection of beacons will resume. 
+The ProxSee SDK needs to be enabled to receive events. Assuming the ProxSee SDK is enabled, if Location services are disabled, the detection of virtual beacons will be paused. It is noted that on Nexus 5 if locations services are disabled, scanning for physical beacons will be paused as well. Once Location services are re-enabled, the detection of virtual beacons will resume. 
  
 **What happens when Location permissions are disabled?**
  
