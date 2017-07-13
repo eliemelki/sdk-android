@@ -13,11 +13,10 @@ The content in this document is divided into the following sections:
             - [Deployment](#deployment)
             - [Limitations](#limitations)
             - [Accuracy](#accuracy)
-        - [Mobile API Key](#mobile-api-key)
         - [Locations](#locations)
         - [Tags](#tags)
         - [Metadata](#metadata)
-        - [Check-In/Check-Out](#check-in-check-out)
+        - [Check-In/Check-Out](#check-in%2Fcheck-out)
 - [Section 2: Implementing the ProxSee SDK in an Android Project](#section-2-implementing-the-proxsee-sdk-in-an-android-project)
     - [Prerequisites](#prerequisites)
     - [Generate a Mobile API Key](#generate-a-mobile-api-key)
@@ -26,7 +25,7 @@ The content in this document is divided into the following sections:
     - [Launch the ProxSee SDK](#launch-the-proxsee-sdk)
 - [Section 3: Using the ProxSee SDK](#section-3-using-the-proxsee-sdk)
     - [Handle Tag Changeset Notifications](#handle-tag-changeset-notifications)
-    - [Start/Stop the ProxSee SDK](#start-stop-the-proxsee-sdk)
+    - [Start/Stop the ProxSee SDK](#start%2Fstop-the-proxsee-sdk)
         - [Determine the State of the ProxSee SDK](#determine-the-state-of-the-proxsee-sdk)
         - [Start the ProxSee SDK](#start-the-proxsee-sdk)
         - [Stop the ProxSee SDK](#stop-the-proxsee-sdk)
@@ -54,7 +53,7 @@ Along with monitoring the beacons/virtual beacons, the ProxSee SDK also queries 
 The ProxSee SDK allows your application to:
  
 - **Listen For and Receive Tag Changeset Notifications**: Your application can listen for and receive tag changeset notifications sent by the ProxSee SDK. You can update the tags and positional information associated to a beacon/virtual beacon through the ProxSee Admin Portal without having to update your ProxSee SDK or the physical, deployed beacons. See [Handle Tag Changeset Notifications](#handle-tag-changeset-notifications). 
-- **Start/Stop the ProxSee SDK**: The ProxSee SDK monitors beacons/virtual beacons, broadcasts check-ins/check-outs, send tag changeset notifications, and update metadata. At any point in your application, you can start/stop the ProxSee SDK, which turns on/off monitoring. See [Start/Stop the ProxSee SDK](#start-stop-the-proxsee-sdk). 
+- **Start/Stop the ProxSee SDK**: The ProxSee SDK monitors beacons/virtual beacons, broadcasts check-ins/check-outs, send tag changeset notifications, and update metadata. At any point in your application, you can start/stop the ProxSee SDK, which turns on/off monitoring. See [Start/Stop the ProxSee SDK](#start%2Fstop-the-proxsee-sdk). 
 - **Update Metadata**: You can add additional information about a user such as account information and user IDs. When the ProxSee SDK receives metadata it associates it with the user's check-ins, which helps you identify users and devices among the collected data. See [Update Metadata](#send-update-metadata).
 
 ### Key Concepts
@@ -261,7 +260,7 @@ public class BaseApplication extends Application {
 The following actions can be performed within the ProxSee SDK:
  
 - [Handle Tag Changeset Notifications](#handle-tag-changeset-notifications)
-- [Start/Stop the ProxSee SDK](#start-stop-the-proxsee-sdk)
+- [Start/Stop the ProxSee SDK](#start%2Fstop-the-proxsee-sdk)
 - [Check and Enable Permissions at Runtime](#check-and-enable-permissions-at-runtime)
 - [Update Metadata](#update-metadata)
 
@@ -404,7 +403,7 @@ ProxSeeSDKManager.getInstance().updateMetadata(metadata, new ProxSeeSDKManager.C
 
 ```
  
-### FAQs
+## Section 4: FAQs
  
 **Will the ProxSee SDK impact my mobile phone’s battery?** 
  
@@ -422,6 +421,10 @@ Refer to the [Launch the ProxSee SDK](#launch-the-proxsee-sdk) section for detai
 **What happens when Bluetooth is disabled?**
  
 Scanning for physical beacons is paused while scanning for virtual beacons will continue. Once Bluetooth is re-enabled, scanning for physical beacons will resume. Note: The ProxSee SDK must have monitoring enabled in order to receive events.
+
+**What happens when Location services are disabled?**
+
+The ProxSee SDK needs to be enabled to receive events. Assuming the ProxSee SDK is enabled, if Location services are disabled, the detection of virtual beacons will be paused. As of Android 6, Location services need to be enabled for BLE scanning. If enforced by the device, the detection of physical beacons will also be paused. Once Location services are re-enabled, the detection of beacons will resume. 
  
 **What happens when Location permissions are disabled?**
  
