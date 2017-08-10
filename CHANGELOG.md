@@ -4,6 +4,15 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [2.4.6] - 2017-10-08
+
+
+### Changed
+
+
+- Adding proper user agent header
+- Remove in-memory cache and use head calls.
+
 
 ## [2.4.5] - 2017-06-01
 
