@@ -7,7 +7,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## [2.4.7] - 2017-08-10
 
 ### Changed
-- Re-add accuracy check
+- refining accuracy detection for virtual beacons
 
 ## [2.4.6] - 2017-08-16
 
