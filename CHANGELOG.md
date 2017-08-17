@@ -4,14 +4,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## [2.4.7] - 2017-08-10
+## [2.4.6] - 2017-10-08
+
 
 ### Changed
-- refining accuracy detection for virtual beacons
 
-## [2.4.6] - 2017-08-16
-
-### Changed
 
 - Adding proper user agent header
 - Remove in-memory cache and use head calls.
