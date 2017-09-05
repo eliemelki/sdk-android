@@ -7,10 +7,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## [2.5.0] - 2017-09-09
 
 ### Fixed
-- Fixing edge cases where checkout not being recieved. 
+- Fixing edge cases where checkout not being detected 
 
 ### Changed
-- Changing the way we cache and enhancing checkins
+- enhancing beacons detection in deep sleep mode.
 
 ## [2.4.7] - 2017-08-10
 
