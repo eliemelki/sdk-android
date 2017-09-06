@@ -28,7 +28,6 @@ The content in this document is divided into the following sections:
         - [Stop the ProxSee SDK](#stop-the-proxsee-sdk)
     - [Check and Enable Permissions at Runtime](#check-and-enable-permissions-at-runtime)
     - [Update Metadata](#update-metadata)
-    - [Get Detected Beacons](#get-detected-beacons)
 - [Section 4: FAQs](#section-4-faqs)
  
 ## Section 1: Introducing the ProxSee SDK
@@ -53,7 +52,6 @@ The ProxSee SDK allows your application to:
 - **Listen For and Receive Tag Changeset Notifications**: Your application can listen for and receive tag changeset notifications sent by the ProxSee SDK. You can update the tags and positional information associated to a beacon/virtual beacon through the ProxSee Admin Portal without having to update your ProxSee SDK or the physical, deployed beacons. See [Handle Tag Changeset Notifications](#handle-tag-changeset-notifications).
 - **Start/Stop the ProxSee SDK**: The ProxSee SDK monitors beacons/virtual beacons, broadcasts check-ins/check-outs, sends tag changeset notifications, and updates metadata. At any point in your application, you can start/stop the ProxSee SDK, which starts/stops monitoring. See [Start/Stop the ProxSee SDK](#startstop-the-proxsee-sdk).
 - **Update Metadata**: You can send additional information about a user such as account information and user IDs to the ProxSee SDK. When the ProxSee SDK receives metadata it associates it with the user's check-ins, which helps you identify users and devices among the collected data. See [Update Metadata](#update-metadata).
-- **Get Detected Beacons**: Any time in the application lifecycle after initialization, you can get alld detected beacons. See [Get Detected Beacons](#get-detected-beacons).
 
 ### Key Concepts
 
@@ -237,7 +235,6 @@ The following actions can be performed within the ProxSee SDK:
 - [Start/Stop the ProxSee SDK](#startstop-the-proxsee-sdk)
 - [Check and Enable Permissions at Runtime](#check-and-enable-permissions-at-runtime)
 - [Update Metadata](#update-metadata)
-- [Get Detected Beacons](#get-detected-beacons)
 
 ### Handle Tag Changeset Notifications
 
@@ -378,28 +375,13 @@ ProxSeeSDKManager.getInstance().updateMetadata(metadata, new ProxSeeSDKManager.C
 
 ```
 
-### Get Detected Beacons
-
-Any time in the application lifecycle after initialization, you can execute the following code to get all detected beacons.
-
-```
-ProxSeeSDKManager manager = ProxSeeSDKManager.getInstance();
-manager.fetchDetectedBeacons(new ProxSeeSDKManager.DetectedBeaconsCallBack() {
-    @Override
-    public void onComplete(Set<io.proxsee.sdk.model.ProxSeeBeacon> beacons) {
-    
-    }
-});
-
-```
-
 ## Section 4: FAQs
 
-**Will the ProxSee SDK impact my mobile device’s battery?** 
+**Will the ProxSee SDK impact my mobile phone’s battery?** 
 
-Yes. The ProxSee SDK will draw approximately 1-2% of the mobile device’s battery. 
+Yes. The ProxSee SDK will draw approximately 1-2% of the mobile phone’s battery. 
 
-**How long does it take the ProxSee SDK to detect a beacon?**
+**How long does it take for the ProxSee SDK to detect a beacon?**
 
 - **Beacons**: 0 to a few seconds
 - **Virtual beacons**: 2.5 to 5 minutes
@@ -418,16 +400,4 @@ The ProxSee SDK needs to be enabled to receive events. Assuming the ProxSee SDK 
 
 **What happens when Location permissions are disabled?**
 
-On Android 6, permissions can be enabled/disabled. When you disable Location permissions the OS will restart the application. Assuming the ProxSee SDK is enabled, it will resume, but the monitoring of beacons and virtual beacons will be paused. Once Location permissions are re-enabled, the monitoring of beacons and virtual beacons will be resumed. 
-
-**How long does it take the ProxSee SDK to confirm a check-out for a beacon?**
-
-- **Physical Beacons**: The time it takes the ProxSee SDK to confirm a check-out for a physical beacon depends on whether the application is in the background or the foreground.
-    - **Background**:  In excess of 60 seconds, depending OS Bluetooth scanning optimization
-    - **Foreground**: A minimum of 60 seconds
-- **Virtual Beacons**: As a general rule, the ProxSee SDK fetches the mobile device's location every 2.5 to 5 minutes. Whenever the mobile device's location is updated, the ProxSee SDK checks to see if the updated location is within the boundary of a virtual beacon. If the location had previously been within the boundary of a virtual beacon but is no longer, a check-out is directly sent. Refer to the [Virtual Beacon](#virtual-beacon) section for more details.
-
-**How long does it take to for beacons that have just been installed to reach the ProxSee SDK?**
-
-- **Physical Beacons**: Once a beacon is installed, if the ProxSee SDK is detected and the mobile device is not nearby, the ProxSee SDK should directly detect it. Note, in the case where you are installing a beacon next to you while installing the ProxSee SDK, a tag and/or check-in may be missed depending on whether the the installation of the ProxSee SDK or the detection of the beacon finishes first. 
-- **Virtual Beacons**: Once a virtual beacon has been installed and you are not within its boundaries, any location event (e.g., 5 minutes has elapsed) will update the data and allow the ProxSee SDK to detect it once the mobile device is within the boundary of the virtual beacon. Note, if you are installing the virtual beacon while within the boundary of the beacon while installing the ProxSee SDK, a tag and/or check-in may be missed depending on whether the installation of the ProxSee SDK or the detection of the virtual beacon finishes first. 
+On Android 6, permissions can be enabled/disabled. When you disable Location permissions the OS will restart the application. Assuming the ProxSee SDK is enabled,  it will resume, but the monitoring of beacons and virtual beacons will be paused. Once Location permissions are re-enabled, the monitoring of beacons and virtual beacons will be resumed. 

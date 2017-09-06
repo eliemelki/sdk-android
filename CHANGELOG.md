@@ -4,18 +4,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## [2.5.0] - 2017-09-09
-
-### Fixed
-- Fixing edge cases where checkout not being detected 
-
-### Changed
-- enhancing beacons detection in deep sleep mode.
-
 ## [2.4.7] - 2017-08-10
 
 ### Changed
-- refining accuracy detection for virtual beacons
+- Re-add accuracy check
 
 ## [2.4.6] - 2017-08-16
 
