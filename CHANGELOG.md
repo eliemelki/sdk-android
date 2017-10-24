@@ -4,6 +4,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [2.5.1] - 2017-10-23
+
+### Added
+- Adding fetchDeviceId api to get Proxsee identifier
+
 ## [2.5.0] - 2017-09-09
 
 ### Fixed

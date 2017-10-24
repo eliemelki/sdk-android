@@ -29,6 +29,7 @@ The content in this document is divided into the following sections:
     - [Check and Enable Permissions at Runtime](#check-and-enable-permissions-at-runtime)
     - [Update Metadata](#update-metadata)
     - [Get Detected Beacons](#get-detected-beacons)
+    - [Get Device ID](#get-device-id)
 - [Section 4: FAQs](#section-4-faqs)
  
 ## Section 1: Introducing the ProxSee SDK
@@ -392,6 +393,22 @@ manager.fetchDetectedBeacons(new ProxSeeSDKManager.DetectedBeaconsCallBack() {
 });
 
 ```
+
+
+### Get Device ID
+
+Any time in the application lifecycle after initialization, you can execute the following code to get device id that uniquely identify your app in proxsee system.
+
+```
+ProxSeeSDKManager.getInstance().fetchDeviceId(new ProxSeeSDKManager.DeviceIdCallBack() {
+    @Override
+    public void onComplete(UUID deviceId) {
+
+    }
+});    
+
+```
+
 
 ## Section 4: FAQs
 
