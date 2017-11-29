@@ -1,6 +1,5 @@
 package io.proxsee.sdk.sampleapp;
 
-import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -9,20 +8,24 @@ import android.support.v7.app.ActionBarActivity;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.util.Collection;
 import java.util.Set;
 
-import io.proxsee.sdk.ProxSeePermissionManager;
 import io.proxsee.sdk.ProxSeeSDKManager;
-import io.proxsee.sdk.broadcast.ProxSeeBroadcastReceiver;
-import io.proxsee.sdk.broadcast.ProxSeeBroadcaster;
-import io.proxsee.sdk.model.BeaconNotificationObject;
+import io.proxsee.sdk.events.receiver.TagsReceiver;
+import io.proxsee.sdk.main.BeaconsManager;
+import io.proxsee.sdk.main.MetadataManager;
+import io.proxsee.sdk.main.TagsManager;
+import io.proxsee.sdk.model.ProxSeeBeacon;
+import io.proxsee.sdk.model.Tags;
+import io.proxsee.sdk.permissions.PermissionManager;
 
 
 public class MainActivity extends ActionBarActivity {
     private LinearLayout layout;
-    private ProxSeeBroadcastReceiver proxSeeBroadcastReceiver;
+    private TagsReceiver tagsReceiver;
 
-    private ProxSeePermissionManager proxSeePermissionManager = new ProxSeePermissionManager();
+    private PermissionManager permissionManager = new PermissionManager();
     private static final int PROXSEE_PERMISSIONS_REQUEST = 1;
 
     @Override
@@ -32,11 +35,11 @@ public class MainActivity extends ActionBarActivity {
 
         layout = (LinearLayout) findViewById(R.id.layout);
 
-        this.proxSeeBroadcastReceiver = new ProxSeeBroadcastReceiver() {
+        this.tagsReceiver = new TagsReceiver() {
             @Override
-            public void didChangeTagsSet(BeaconNotificationObject beaconNotificationObject) {
-                Set<String> newTags = beaconNotificationObject.getCurrentTagsChangedSet().getTags();
-                Set<String> oldTags = beaconNotificationObject.getCurrentTagsChangedSet().getTags();
+            public void didChangeTagsSet(Tags tags) {
+                Set<String> newTags = tags.getCurrentTagsChangedSet().getTags();
+                Set<String> oldTags = tags.getCurrentTagsChangedSet().getTags();
 
                 for (String tag : newTags) {
                     if (!oldTags.contains(tag)) onTagDetected(tag);
@@ -47,8 +50,8 @@ public class MainActivity extends ActionBarActivity {
                 }
             }
         };
-
-        registerReceiver(this.proxSeeBroadcastReceiver, new IntentFilter(ProxSeeBroadcaster.TAGS_CHANGED_ACTION));
+        TagsManager tagsManager = ProxSeeSDKManager.getInstance().getTagsManager();
+        tagsManager.registerReceiver(this.tagsReceiver);
 
 
     }
@@ -57,9 +60,9 @@ public class MainActivity extends ActionBarActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        if (!proxSeePermissionManager.isPermissionGranted(this)) {
+        if (!permissionManager.isPermissionGranted(this)) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                requestPermissions(proxSeePermissionManager.requiredPermissions(), PROXSEE_PERMISSIONS_REQUEST);
+                requestPermissions(permissionManager.requiredPermissions(), PROXSEE_PERMISSIONS_REQUEST);
             }
         }
     }
@@ -67,7 +70,8 @@ public class MainActivity extends ActionBarActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        unregisterReceiver(this.proxSeeBroadcastReceiver);
+        TagsManager tagsManager = ProxSeeSDKManager.getInstance().getTagsManager();
+        tagsManager.unregisterReceiver(this.tagsReceiver);
     }
 
 
@@ -105,11 +109,11 @@ public class MainActivity extends ActionBarActivity {
 
                 ProxSeeSDKManager sdkManager = ProxSeeSDKManager.getInstance();
                 if (isPermissionGranted) {
-                    if (!sdkManager.isStarted()) {
-                        sdkManager.start();
+                    if (!sdkManager.isEnabled()) {
+                        sdkManager.enable();
                     }
                  }else {
-                    sdkManager.stop();
+                    sdkManager.disable();
                 }
                 break;
 

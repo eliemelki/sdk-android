@@ -16,31 +16,3 @@
 #   public *;
 #}
 
-# Gson specific classes (required for Proxsee)
--keep class sun.misc.Unsafe { *; }
--keep class com.google.gson.** { *; }
--dontwarn com.google.gson.stream.JsonScope
--dontwarn com.google.gson.Gson
--dontwarn com.google.gson.TypeAdapter
--dontwarn com.google.gson.internal.bind.TypeAdapters$20
-
-# Proxsee
--keep class io.proxsee.sdk.** { *; }
--dontwarn javax.annotation.**
--dontwarn javax.lang.model.**
--dontwarn javax.tools.**
-
-# Realm (required for Proxsee)
--keep class io.realm.annotations.RealmModule
--keep @io.realm.annotations.RealmModule class *
--keep class io.realm.internal.Keep
--keep @io.realm.internal.Keep class * { *; }
--dontwarn javax.**
--dontwarn io.realm.**
-
-# Volley (required for Proxsee)
--keepattributes InnerClasses
--keep class com.android.volley.** {*;}
--keep class com.android.volley.toolbox.** {*;}
--keep class com.android.volley.$ {*;}
--keep class org.apache.commons.logging.**

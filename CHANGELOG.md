@@ -4,23 +4,29 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [3.0.0] - 2017-11-29
+### Changed
+- Change package and main api interface. Please view [3.0.0 Migration Guide](Docs/migration_to_3.0.0.md). 
+- Redesign the SDK architecture
+- Add proper Android O support.
+
 ## [2.5.1] - 2017-10-23
 
 ### Added
-- Adding fetchDeviceId api to get Proxsee identifier
+- Adding fetchDeviceId api to get ProxSee identifier
 
 ## [2.5.0] - 2017-09-09
 
 ### Fixed
-- Fixing edge cases where checkout not being detected 
+- Fixing edge cases where checkout was not being detected 
 
 ### Changed
-- enhancing beacons detection in deep sleep mode
+- Enhancing beacons detection in deep sleep mode
 
 ## [2.4.7] - 2017-08-10
 
 ### Changed
-- refining accuracy detection for virtual beacons
+- Refining accuracy detection for virtual beacons
 
 ## [2.4.6] - 2017-08-16
 
@@ -36,7 +42,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 
 
-- adding gzip support
+- Adding gzip support
 
 ## [2.4.4] - 2017-06-01
 
@@ -150,7 +156,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Changed
 
 
-- Bluetooth, location and SDK metadata flags are no longer sent
+- Bluetooth, location, and SDK metadata flags are no longer sent
 
 ## [2.3.2] - 2016-06-30
 
@@ -229,7 +235,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 
 - The ability to start and stop the SDK has been added
-- Device information can now be captured through metadata such as location, Bluetooth and the starting/stopping of the SDK
+- Device information can now be captured through metadata such as location, Bluetooth, and the starting/stopping of the SDK
 
 ### Changed
 
@@ -279,5 +285,5 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Fixed
 
 
-- Corrected The failed Vera code test case has been corrected (improper Resource Shutdown or release in the BluetoothCrashResolver class)
+- Corrected the failed Vera code test case (improper Resource Shutdown or release in the BluetoothCrashResolver class)
  

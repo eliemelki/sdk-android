@@ -22,10 +22,10 @@ The content in this document is divided into the following sections:
     - [Launch the ProxSee SDK](#launch-the-proxsee-sdk)
 - [Section 3: Using the ProxSee SDK](#section-3-using-the-proxsee-sdk)
     - [Handle Tag Changeset Notifications](#handle-tag-changeset-notifications)
-    - [Start/Stop the ProxSee SDK](#startstop-the-proxsee-sdk)
+    - [Enable/Disable the ProxSee SDK](#enabledisable-the-proxsee-sdk)
         - [Determine the State of the ProxSee SDK](#determine-the-state-of-the-proxsee-sdk)
-        - [Start the ProxSee SDK](#start-the-proxsee-sdk)
-        - [Stop the ProxSee SDK](#stop-the-proxsee-sdk)
+        - [Enable the ProxSee SDK](#enable-the-proxsee-sdk)
+        - [Disable the ProxSee SDK](#disable-the-proxsee-sdk)
     - [Check and Enable Permissions at Runtime](#check-and-enable-permissions-at-runtime)
     - [Update Metadata](#update-metadata)
     - [Get Detected Beacons](#get-detected-beacons)
@@ -38,7 +38,7 @@ The content in this document is divided into the following sections:
 
 The ProxSee SDK takes the complexities out of beacon interaction and provides you with a simplified interface to quickly integrate iBeacon™ and virtual beacon (geo-fence) monitoring into your mobile application.
 
-Combined with the ProxSee Admin Portal, the ProxSee SDK allows you to create and manage tags, listen for, receive, and respond to tag changeset notifications, add and associate user metadata to check-ins, and mine resultant data according to your needs (e.g., to determine wait times, travel patterns).
+Combined with the ProxSee Admin Portal, the ProxSee SDK allows you to create and manage tags; listen for, receive, and respond to tag changeset notifications; add and associate user metadata to check-ins; and mine resultant data according to your needs (e.g., to determine wait times, travel patterns).
 
 ### How Does the ProxSee SDK Work? 
 
@@ -52,9 +52,9 @@ Along with monitoring the beacons/virtual beacons, the ProxSee SDK also queries 
 The ProxSee SDK allows your application to:
 
 - **Listen For and Receive Tag Changeset Notifications**: Your application can listen for and receive tag changeset notifications sent by the ProxSee SDK. You can update the tags and positional information associated to a beacon/virtual beacon through the ProxSee Admin Portal without having to update your ProxSee SDK or the physical, deployed beacons. See [Handle Tag Changeset Notifications](#handle-tag-changeset-notifications).
-- **Start/Stop the ProxSee SDK**: The ProxSee SDK monitors beacons/virtual beacons, broadcasts check-ins/check-outs, sends tag changeset notifications, and updates metadata. At any point in your application, you can start/stop the ProxSee SDK, which starts/stops monitoring. See [Start/Stop the ProxSee SDK](#startstop-the-proxsee-sdk).
-- **Update Metadata**: You can send additional information about a user such as account information and user IDs to the ProxSee SDK. When the ProxSee SDK receives metadata it associates it with the user's check-ins, which helps you identify users and devices among the collected data. See [Update Metadata](#update-metadata).
-- **Get Detected Beacons**: Any time in the application lifecycle after initialization, you can get alld detected beacons. See [Get Detected Beacons](#get-detected-beacons).
+- **Enable/Disable the ProxSee SDK**: The ProxSee SDK monitors beacons/virtual beacons, broadcasts check-ins/check-outs, sends tag changeset notifications, and updates metadata. At any point in your application, you can enable/disable the ProxSee SDK, which starts/stops monitoring. See [Enable/Disable the ProxSee SDK](#enabledisable-the-proxsee-sdk).
+- **Update Metadata**: You can send additional information about a user such as account information and user IDs to the ProxSee SDK. When the ProxSee SDK receives metadata, it associates it with the user's check-ins, which helps you identify users and devices among the collected data. See [Update Metadata](#update-metadata).
+- **Get Detected Beacons**: Any time in the application lifecycle after initialization, you can get all detected beacons. See [Get Detected Beacons](#get-detected-beacons).
 
 ### Key Concepts
 
@@ -68,7 +68,7 @@ In general, the closer you are to a beacon the more accurate the reported distan
 
 A virtual beacon is a geo-fence that acts like a broad-ranging physical beacon, but is based on the user crossing a circular boundary on a map as opposed to nearing a physical beacon. As such, a virtual beacon can serve as a less accurate beacon in locations where the customer may not have access/permission to add a physical beacon. 
 
-The accuracy of a geo-fence is based on GPS/the network provider. The ProxSee SDK uses PRIORITY_BALANCED_POWER_ACCURACY which provides up to 100 meters accuracy. The ProxSee SDK is also expected to receive a location update within 2 to 5 minutes.
+The accuracy of a geo-fence is based on GPS and the network provider. The ProxSee SDK uses PRIORITY_BALANCED_POWER_ACCURACY which provides up to 100 meters accuracy. The ProxSee SDK is also expected to receive a location update within 2 to 5 minutes.
 
 #### Locations
 
@@ -120,6 +120,8 @@ Incorporating the ProxSee SDK into your Android project is a simple four-step pr
 
 The ProxSee SDK requires:
 
+- Minimim Proxsee SDK version 9
+- Beacon detection, only available starting at OS 5
 - An active Bluetooth service in order to function with beacons/virtual beacons
 - Active Location services in order to function with virtual beacons
 - An Internet connection for the initial run in order to register the device. Note that once the device has been registered, offline support is available. When offline:
@@ -169,45 +171,14 @@ At this point, the ProxSee SDK is ready to use and your project can compile succ
 
 ### Complete ProGuard Configuration
 
-
-If ProGuard is used for obfuscating the source code, the following rules must be added into the **proguard-rules.pro** file.
-
-```
-# Gson specific classes (required for Proxsee)
--keep class sun.misc.Unsafe { *; }
--keep class com.google.gson.** { *; }
--dontwarn com.google.gson.stream.JsonScope
--dontwarn com.google.gson.Gson
--dontwarn com.google.gson.TypeAdapter
--dontwarn com.google.gson.internal.bind.TypeAdapters$20
-
-# Proxsee
--keep class io.proxsee.sdk.** { *; }
--dontwarn javax.annotation.**
--dontwarn javax.lang.model.**
--dontwarn javax.tools.**
-
-# Realm (required for Proxsee)
--keep class io.realm.annotations.RealmModule
--keep @io.realm.annotations.RealmModule class *
--keep class io.realm.internal.Keep
--keep @io.realm.internal.Keep class * { *; }
--dontwarn javax.**
--dontwarn io.realm.**
-
-# Okhttp (required for Proxsee)
--dontwarn okio.**
--dontwarn javax.annotation.Nullable
--dontwarn javax.annotation.ParametersAreNonnullByDefault
-
-```
+If ProGuard is used for obfuscating the source code, no need to specify ProxSee ProGuard rules as we ship the SDK along with a consumer ProGuard.
 
 ### Launch the ProxSee SDK
 
 On the application onCreate, initialize the ProxSee SDK with the Mobile API Key you generated in a previous step. See [Generate a Mobile API Key](#generate-a-mobile-api-key). 
 
 
-On the initial launch, once initialized, the ProxSee SDK will be ON by default and will start automatically. When your application is restarted followed by a call to initialize, the ProxSee SDK will attempt to start depending on the SDK state. Calling initialize more than once has no effect, unless the Mobile API Key has changed. 
+On the initial launch, once initialized, the ProxSee SDK will be ON by default and will start automatically. When your application is restarted followed by a call to initialize, the ProxSee SDK will attempt to start depending on the SDK state. Calling to initialize more than once has no effect, unless the Mobile API Key has changed. 
 
 
 **Note**: In the following code, replace “YourApiKey” with the Mobile API Key you generated in a previous step.
@@ -235,14 +206,14 @@ public class BaseApplication extends Application {
 The following actions can be performed within the ProxSee SDK:
 
 - [Handle Tag Changeset Notifications](#handle-tag-changeset-notifications)
-- [Start/Stop the ProxSee SDK](#startstop-the-proxsee-sdk)
+- [Enable/Disable the ProxSee SDK](#enabledisable-the-proxsee-sdk)
 - [Check and Enable Permissions at Runtime](#check-and-enable-permissions-at-runtime)
 - [Update Metadata](#update-metadata)
 - [Get Detected Beacons](#get-detected-beacons)
 
 ### Handle Tag Changeset Notifications
 
-The ProxSee SDK broadcasts all tag changes. To start listening for changes, register ```ProxSeeBroadcastReceiver``` and override the ```didChangeTagsSet``` method. The ProxSee SDK will send a ```BeaconNotificationObject``` which includes the new and previous tag changesets along with the date captured for each changeset.
+The ProxSee SDK broadcasts all tag changes. To start listening for changes, register ```ProxSeeTagsBroadcastReceiver``` and override the ```didChangeTagsSet``` method. The ProxSee SDK will send a ```Tags``` which includes the new and previous tag changesets along with the date captured for each changeset.
 
 Example:
 
@@ -250,64 +221,67 @@ Example:
 import android.app.Activity;
 
 import io.proxsee.sdk.ProxSeeSDKManager;
-import io.proxsee.sdk.model.BeaconNotificationObject;
+import io.proxsee.sdk.model.Tags;
+import io.proxsee.sdk.events.receiver;
 
 public class MainActivity extends Activity {
-	private ProxSeeBroadcastReceiver proxSeeBroadcastReceiver;
+	private ProxSeeTagsBroadcastReceiver TagsReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        proxSeeBroadcastReceiver = new ProxSeeBroadcastReceiver() {
+        TagsReceiver = new ProxSeeTagsBroadcastReceiver() {
             @Override
-            public void didChangeTagsSet(BeaconNotificationObject beaconNotificationObject) {
+            public void didChangeTagsSet(Tags tags) {
                 // do desired action
             }
         };
 
- 		registerReceiver(proxSeeBroadcastReceiver,new IntentFilter(ProxSeeBroadcaster.TAGS_CHANGED_ACTION));
+ 		TagsManager tagsManager = ProxSeeSDKManager.getInstance().getTagsManager();
+        tagsManager.registerReceiver(TagsReceiver);
     }
 
     @Override
     public void onDestroy() {
         onDestroy();
-        unregisterReceiver(proxSeeBroadcastReceiver);
+        TagsManager tagsManager = ProxSeeSDKManager.getInstance().getTagsManager();
+        tagsManager.unregisterReceiver(TagsReceiver);
     }
 }
 ```
 
-### Start/Stop the ProxSee SDK
+### Enable/Disable the ProxSee SDK
 
-At any point of the application lifecycle you can start or stop the ProxSee SDK. Stopping the ProxSee SDK will stop beacon/virtual beacon monitoring, check-in/check-out broadcasts, tag changeset notifications, and metadata updates. 
+At any point of the application lifecycle you can enable or disable the ProxSee SDK. Stopping the ProxSee SDK will stop beacon/virtual beacon monitoring, check-in/check-out broadcasts, tag changeset notifications, and metadata updates. 
 
-Any explicit call to start or stop the ProxSee SDK will change the SDK state accordingly. 
+Any explicit call to enable or disable the ProxSee SDK will change the SDK state accordingly. 
 
 #### Determine the State of the ProxSee SDK
 
-To determine if the ProxSee SDK is in the start or stop state:
+To determine if the ProxSee SDK is enabled or disabled:
 
 
 ```
-ProxSeeSDKManager.getInstance().isStarted();
+ProxSeeSDKManager.getInstance().isEnabled();
 
 
 ```
-#### Start the ProxSee SDK 
+#### Enable the ProxSee SDK 
 
-To start the ProxSee SDK and in turn start the monitoring of beacons/virtual beacons, check-in/check-out broadcasts, tag changeset notifications, and metadata updates:
-
-```
-ProxSeeSDKManager.getInstance().start();
-
+To enable the ProxSee SDK and in turn start the monitoring of beacons/virtual beacons, check-in/check-out broadcasts, tag changeset notifications, and metadata updates:
 
 ```
+ProxSeeSDKManager.getInstance().enable();
 
-#### Stop the ProxSee SDK
-
-To stop the ProxSee SDK and in turn stop the monitoring of beacons/virtual beacons, check-in/check-out broadcasts, tag changeset notifications, and metadata updates:
 
 ```
-ProxSeeSDKManager.getInstance().stop();
+
+#### Disable the ProxSee SDK
+
+To disable the ProxSee SDK and in turn stop the monitoring of beacons/virtual beacons, check-in/check-out broadcasts, tag changeset notifications, and metadata updates:
+
+```
+ProxSeeSDKManager.getInstance().disable();
 
 
 ```
@@ -320,23 +294,25 @@ The ProxSee SDK requires **either** of the following permissions to operate:
 - ACCESS_FINE_LOCATION
 - ACCESS_COARSE_LOCATION 
 
-The ProxSee SDK also has the ability to pick up permission changes and resume/pause automatically depending on the SDK state without an explicit call to stop/start.
+The ProxSee SDK also has the ability to pick up permission changes and resume/pause automatically depending on the SDK state without an explicit call to disable/enable.
 
-The following sample demonstrates how to request permissions in your activity. The sample below checks permissions on start, but you may modify it as suitable for your project. For that purpose, you can use the ProxSeePermissionManager.
+The following sample demonstrates how to request permissions in your activity. The sample below checks permissions on start, but you may modify it as suitable for your project. For that purpose, you can use the PermissionManager.
 
 ```
-import io.proxsee.sdk.ProxSeePermissionManager;
+import io.proxsee.sdk.permissions.PermissionManager;
 
 
 private static final int PROXSEE_PERMISSIONS_REQUEST = 1;
- private ProxSeePermissionManager proxSeePermissionManager = new ProxSeePermissionManager();
+private PermissionManager proxSeePermissionManager = new PermissionManager();
 
 @Override
 protected void onStart() {
     super.onStart();
-    if (!proxSeePermissionManager.isPermissionGranted(this)) {
-            requestPermissions(proxSeePermissionManager.requiredPermissions(), PROXSEE_PERMISSIONS_REQUEST);
-    }
+        super.onStart();
+        if (!permissionManager.isPermissionGranted(this)) {
+             requestPermissions(permissionManager.requiredPermissions(), PROXSEE_PERMISSIONS_REQUEST);
+        }
+
 }
 
 
@@ -352,8 +328,7 @@ public void onRequestPermissionsResult(int requestCode, @NonNull String[] permis
                         break;
                     }
                 }
-                //you are not required to start explicitly unless you have stopped the SDK earlier. The SDK will be able to resume automatically if it was in a starting state.
-       			break;
+                break;
        }
        default:
            super.onRequestPermissionsResult(requestCode,permissions,grantResults);
@@ -369,10 +344,11 @@ At any point in the application lifecycle you can update metadata. See the sampl
 ```
 HashMap<String, Object> metadata = new HashMap<String, Object>();
 metadata.put("key", "value");
-ProxSeeSDKManager.getInstance().updateMetadata(metadata, new ProxSeeSDKManager.CompletionHandler() {
+ProxSeeSDKManager instance = ProxSeeSDKManager.getInstance();
+instance.getMetadataManager().updateMetadata(metadata, new MetadataManager.UpdateMetadataCallBack() {
     @Override
-    public void onUpdateCompleted(boolean success, Exception error) {
-        // handle response
+    public void onComplete(boolean success, Exception exception) {
+                
     }
 });
 
@@ -384,12 +360,11 @@ ProxSeeSDKManager.getInstance().updateMetadata(metadata, new ProxSeeSDKManager.C
 Any time in the application lifecycle after initialization, you can execute the following code to get all detected beacons.
 
 ```
-ProxSeeSDKManager manager = ProxSeeSDKManager.getInstance();
-manager.fetchDetectedBeacons(new ProxSeeSDKManager.DetectedBeaconsCallBack() {
-    @Override
-    public void onComplete(Set<io.proxsee.sdk.model.ProxSeeBeacon> beacons) {
-    
-    }
+ProxSeeSDKManager instance = ProxSeeSDKManager.getInstance();
+instance.getBeaconsManager().getDetectedBeacons(new BeaconsManager.GetDetectedBeaconsCallBack() {
+      @Override
+      public void onComplete(Collection<ProxSeeBeacon> detectedBeacons) {
+      }
 });
 
 ```
@@ -397,12 +372,12 @@ manager.fetchDetectedBeacons(new ProxSeeSDKManager.DetectedBeaconsCallBack() {
 
 ### Get Device ID
 
-Any time in the application lifecycle after initialization, you can execute the following code to get device id that uniquely identify your app in proxsee system.
+Any time in the application lifecycle after initialization, you can execute the following code to get device id that uniquely identifies your app in the ProxSee system.
 
 ```
-ProxSeeSDKManager.getInstance().fetchDeviceId(new ProxSeeSDKManager.DeviceIdCallBack() {
-    @Override
-    public void onComplete(UUID deviceId) {
+ProxSeeSDKManager.getInstance().getDataManager().getIdentifier(GetIdentiferCallback {
+     @Override
+     void onComplete(String id)
 
     }
 });    
@@ -439,9 +414,8 @@ On Android 6, permissions can be enabled/disabled. When you disable Location per
 
 **How long does it take the ProxSee SDK to confirm a check-out for a beacon?**
 
-- **Physical Beacons**: The time it takes the ProxSee SDK to confirm a check-out for a physical beacon depends on whether the application is in the background or the foreground.
-    - **Background**:  In excess of 60 seconds, depending OS Bluetooth scanning optimization
-    - **Foreground**: A minimum of 60 seconds
+- **Physical Beacons**: The time it takes the ProxSee SDK to confirm a check-out for a physical beacon.
+    - **Background/Foreground**:  3 minutes.
 - **Virtual Beacons**: As a general rule, the ProxSee SDK fetches the mobile device's location every 2.5 to 5 minutes. Whenever the mobile device's location is updated, the ProxSee SDK checks to see if the updated location is within the boundary of a virtual beacon. If the location had previously been within the boundary of a virtual beacon but is no longer, a check-out is directly sent. Refer to the [Virtual Beacon](#virtual-beacon) section for more details.
 
 **How long does it take to for beacons that have just been installed to reach the ProxSee SDK?**
