@@ -9,6 +9,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Change package and main api interface. Please view [3.0.0 Migration Guide](Docs/migration_to_3.0.0.md). 
 - Redesign the SDK architecture
 - Add proper Android O support.
+- Beacon detection is now only available starting at OS 5
 
 ## [2.5.1] - 2017-10-23
 
