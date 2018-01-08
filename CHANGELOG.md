@@ -4,6 +4,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [3.0.1] - 2018-01-08
+### Changed
+- optimise network calls.
+
+
 ## [3.0.0] - 2017-11-29
 ### Changed
 - Change package and main api interface. Please view [3.0.0 Migration Guide](Docs/migration_to_3.0.0.md). 
