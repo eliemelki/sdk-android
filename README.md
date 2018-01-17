@@ -420,5 +420,11 @@ On Android 6, permissions can be enabled/disabled. When you disable Location per
 
 **How long does it take to for beacons that have just been installed to reach the ProxSee SDK?**
 
+Starting SDK version 3.0.1 both virtual and physical beacons will be updated as follow: 
+- Assuming the SDK was enabled, on each app initial launch.
+- Each time the SDK has been enabled after it was disabled. 
+- For any beacon detection wether virtual or physical, the list will be refreshed only after 24 hours from the last successful call.
+
+For earlier versions the below apply:
 - **Physical Beacons**: Once a beacon is installed, if the ProxSee SDK is detected and the mobile device is not nearby, the ProxSee SDK should directly detect it. Note, in the case where you are installing a beacon next to you while installing the ProxSee SDK, a tag and/or check-in may be missed depending on whether the the installation of the ProxSee SDK or the detection of the beacon finishes first. 
 - **Virtual Beacons**: Once a virtual beacon has been installed and you are not within its boundaries, any location event (e.g., 5 minutes has elapsed) will update the data and allow the ProxSee SDK to detect it once the mobile device is within the boundary of the virtual beacon. Note, if you are installing the virtual beacon while within the boundary of the beacon while installing the ProxSee SDK, a tag and/or check-in may be missed depending on whether the installation of the ProxSee SDK or the detection of the virtual beacon finishes first. 
