@@ -121,7 +121,7 @@ Incorporating the ProxSee SDK into your Android project is a simple four-step pr
 The ProxSee SDK requires:
 
 - Minimim Proxsee SDK version 9
-- Beacon detection, only available starting at OS 5
+- Beacon detection, only available starting at OS 4.4
 - An active Bluetooth service in order to function with beacons/virtual beacons
 - Active Location services in order to function with virtual beacons
 - An Internet connection for the initial run in order to register the device. Note that once the device has been registered, offline support is available. When offline:

@@ -4,6 +4,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [3.0.2] - 2018-01-20
+### Added
+- add back beacon support for android 4.4 
+
+
 ## [3.0.1] - 2018-01-08
 ### Changed
 - optimise network calls.
