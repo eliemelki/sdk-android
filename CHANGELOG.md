@@ -4,6 +4,12 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [3.0.3] - 2018-02-27
+### Fixed
+- fixing a crash android 5 
+
+
+
 ## [3.0.2] - 2018-01-20
 ### Added
 - add back beacon support for android 4.4 
