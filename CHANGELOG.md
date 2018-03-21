@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 
-## [3.1.0] - 2018-09-03
+## [3.1.0] - 2018-03-09
 ### Added
 - Support for beacon network sharing
 
